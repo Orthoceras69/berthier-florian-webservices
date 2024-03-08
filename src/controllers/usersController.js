@@ -25,6 +25,16 @@ const exposeController = {
             } catch (error) {
                return res.sendStatus(400)
         }
+    },
+    deleteUser:async (req,res)=>{
+        const {body}  = req
+        const {id}    = req.params
+        try {
+            const toDelete = await usersService.deleteUser({id,body})             
+            return res.json(toDelete)
+        } catch (error) {
+            return res.sendStatus(400)
+        }
     }
 }
 

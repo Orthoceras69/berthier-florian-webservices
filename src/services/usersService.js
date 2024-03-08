@@ -74,8 +74,20 @@ const exposeServices = {
         } catch (error) {
             throw error
         }
-    }
+    },
+    deleteUser: async ({id,body})=>{
 
+        try {
+            const   deleteUser  = await User.deleteOne(
+                {_id:id},
+                body,
+                {new:true}
+            ) 
+            return  deleteUser
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 }
 
 
