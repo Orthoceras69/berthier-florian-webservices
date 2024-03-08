@@ -1,5 +1,5 @@
-import jwt          from 'jsonwebtoken'
-const secretKey     = 'secret_key';
+import jwt from 'jsonwebtoken'
+const secretKey = 'secret_key';
 
 const signJwt = ({payload,expiresIn})=>{
     return jwt.sign(payload, secretKey, { expiresIn });

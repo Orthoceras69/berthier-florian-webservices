@@ -1,9 +1,8 @@
-import authService  from '#src/services/authService'
+import authService from '#src/services/authService'
 import usersService from '#src/services/usersService'
-import {signJwt,verifyJwt}    from '#src/utils/jwtoken'
+import {signJwt,verifyJwt} from '#src/utils/jwtoken'
 
 const exposeController = {
-
     login:async (req,res)=>{
         const {body} = req
         const user = await usersService.findOneUserByEmail(body)
@@ -18,9 +17,9 @@ const exposeController = {
         }
         console.log(tokenPayload)
         if(comparePwd){ 
-            const token         = signJwt({payload:tokenPayload,expiresIn:'5min'}) 
-            const refreshToken  = signJwt({payload:tokenPayload,expiresIn:'7d'}) 
-            const accessToken   = {access_token:token,token_type:'Bearer'}
+            const token = signJwt({payload:tokenPayload,expiresIn:'5min'}) 
+            const refreshToken = signJwt({payload:tokenPayload,expiresIn:'7d'}) 
+            const accessToken = {access_token:token,token_type:'Bearer'}
             const updateRefresh = await usersService.updateUserToken({userId:user._id,refreshToken,admin:user.admin})
             res.cookie('admin',tokenPayload.admin)
             return res.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'strict' }).json(accessToken)
@@ -32,12 +31,11 @@ const exposeController = {
         if (!cookies?.refreshToken) return res.sendStatus(401)
         const refreshToken = cookies.refreshToken
         res.clearCookie('refreshToken',{httpOnly:true,sameSite:'None',secure:true})
-        // is refreshToken still valid on our side? 
 
         const foundUser = await usersService.findUserByRefreshToken({refreshToken})
         if(!foundUser) return res.sendStatus(403)
         try {
-            const decoded      = verifyJwt(refreshToken)
+            const decoded = verifyJwt(refreshToken)
             const tokenPayload = {
                 lastName:foundUser.lastName,
                 firstName:foundUser.firstName,
@@ -49,11 +47,9 @@ const exposeController = {
             return res.json({accessToken,token_type:'Bearer'})
         } catch (error) {
             console.log(error)
-            return res.sendStatus(401); // expired refresh token
+            return res.sendStatus(401); 
         }
     }
-
-
 }
 
 export default exposeController

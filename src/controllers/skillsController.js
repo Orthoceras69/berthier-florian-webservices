@@ -1,8 +1,6 @@
 import skillsService from '#src/services/skillsService'
 
-
 const exposeController = {
-
     allSkills:async (req,res)=>{
         const {query} = req
         const allSkills = await skillsService.findAllSkills(query)
@@ -17,26 +15,21 @@ const exposeController = {
     createSkill:async (req,res)=>{
         const {body}  = req
         try {
-                const newSki = await skillsService.createSkill(body)     
-                return res.status(201).json(newSki)
-            } catch (error) {
-               return res.sendStatus(400)
-            // return res.json({error})
+            const newSki = await skillsService.createSkill(body)     
+            return res.status(201).json(newSki)
+        } catch (error) {
+           return res.sendStatus(400)
         }
     },
     updateSkill:async (req,res)=>{
-        const {body}  = req
-        const {id}    = req.params
-        try {
-               
-                const toUpdate = await skillsService.updateSkill({id,body})     
-                
-                return res.json(toUpdate)
-            } catch (error) {
-               return res.sendStatus(400)
-            // return res.json({error})
+        const {body} = req
+        const {id} = req.params
+        try {   
+            const toUpdate = await skillsService.updateSkill({id,body})             
+            return res.json(toUpdate)
+        } catch (error) {
+           return res.sendStatus(400)
         }
-        
     }
 }
 

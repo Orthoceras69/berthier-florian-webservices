@@ -2,11 +2,10 @@ import Project from "#src/models/Projects";
 import queryBuilder from "#src/utils/mongoQueryBuilder";
 
 const exposeServices = {
-
     findOneProject: async ({id:_id})=>{
         try {
-            const   onePro = await Project.findOne({_id})
-            return  onePro
+            const onePro = await Project.findOne({_id})
+            return onePro
         } catch (error) {
             throw new Error(error)
         }
@@ -19,39 +18,36 @@ const exposeServices = {
         } = queryBuilder.getFindOptions({query})
         
         try {
-            const   allPro = await Project.find(filter,projection,options)
-            return  allPro
+            const allPro = await Project.find(filter,projection,options)
+            return allPro
         } catch (error) {
             throw new Error(error)
         }
     },
     createProject: async (rawData)=>{
-
         try {
-            const   creaToSave  = new Project(rawData)
-            const   newPro      = creaToSave.save()   
+            const creaToSave = new Project(rawData)
+            const newPro = creaToSave.save()   
             return  newPro
         } catch (error) {
             throw new Error(error)
         }
     },
     updateProject: async ({id,body})=>{
-
         try {
-            const   updatedPro  = await Project.findOneAndUpdate(
+            const updatedPro = await Project.findOneAndUpdate(
                 {_id:id},
                 body,
                 {new:true}
             ) 
-            return  updatedPro
+            return updatedPro
         } catch (error) {
             throw new Error(error)
         }
     },
     deleteProject: async ({id,body})=>{
-
         try {
-            const   deletePro  = await Project.deleteOne(
+            const deletePro = await Project.deleteOne(
                 {_id:id},
                 body,
                 {new:true}
@@ -62,7 +58,5 @@ const exposeServices = {
         }
     }
 }
-
-
 
 export default exposeServices
