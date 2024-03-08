@@ -1,4 +1,4 @@
-import skillsService from '#src/services/skillssService'
+import skillsService from '#src/services/skillsService'
 
 
 const exposeController = {

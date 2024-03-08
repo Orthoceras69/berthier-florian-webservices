@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get('/',authGard.protect,usersController.allUsers);
-
-router.post('/',usersController.createUser);
+router.post('/',authGard.adminProtect,usersController.createUser);
+router.put('/:id',authGard.adminProtect,usersController.updateUser)
 
 export default router;

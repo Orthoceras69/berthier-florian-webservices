@@ -36,7 +36,19 @@ const exposeController = {
                return res.sendStatus(400)
             // return res.json({error})
         }
-        
+    },
+    deleteProject:async (req,res)=>{
+        const {body}  = req
+        const {id}    = req.params
+        try {
+               
+                const toDelete = await projectsService.deleteProject({id,body})     
+                
+                return res.json(toDelete)
+            } catch (error) {
+               return res.sendStatus(400)
+            // return res.json({error})
+        }
     }
 }
 

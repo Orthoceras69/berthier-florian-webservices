@@ -48,7 +48,19 @@ const exposeServices = {
             throw new Error(error)
         }
     },
+    deleteProject: async ({id,body})=>{
 
+        try {
+            const   deletePro  = await Project.deleteOne(
+                {_id:id},
+                body,
+                {new:true}
+            ) 
+            return  deletePro
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 }
 
 

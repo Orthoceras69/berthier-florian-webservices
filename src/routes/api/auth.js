@@ -5,7 +5,6 @@ const router = express.Router();
 
 // v1/api/auth/login
 router.post('/login',authController.login);
-
 router.post('/refresh',authController.refreshToken);
 
 

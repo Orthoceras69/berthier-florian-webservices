@@ -46,6 +46,18 @@ const exposeServices = {
             throw error
         }
     },
+    updateUser: async ({id,body})=>{
+        try {
+            const   updatedUser  = await User.findOneAndUpdate(
+                {_id:id},
+                body,
+                {new:true}
+            ) 
+            return  updatedUser
+        } catch (error) {
+            throw new Error(error)
+        }
+    },
     updateUserToken: async ({userId,refreshToken})=>{
                
         const query = {

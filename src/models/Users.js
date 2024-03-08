@@ -7,7 +7,7 @@ const userSchema = new Schema({
     lastName : String, 
     email: { type:String,  required:'un email est obligatoire :)', unique:true },
     password:{ type:String },
-    roles: Boolean,
+    admin: Boolean,
     skills:[Schema.Types.Mixed],
     refreshToken:String
 },

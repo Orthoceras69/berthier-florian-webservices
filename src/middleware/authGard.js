@@ -26,7 +26,7 @@ const exposeMiddleware = {
 
     adminProtect:async (req,res,next)=>{
         const accessToken  = req.headers['authorization'];
-
+        const admin = req.cookies.admin
         if (!accessToken) {
             return res.status(401).send('Unauthorized');
         }
@@ -34,9 +34,8 @@ const exposeMiddleware = {
             // Remove Bearer from string
             const cleanAccess = accessToken.slice(7, accessToken.length);
             try {
-                const user = verifyJwt(cleanAccess);
                 // Vérifier le rôle de l'utilisateur
-                if (user.role !== 1) {
+                if (!admin) {
                     return res.status(403).send('Forbidden');
                 }
                 // Si l'utilisateur a le rôle "admin", passer à l'étape suivante

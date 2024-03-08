@@ -1,6 +1,5 @@
 import usersService from '#src/services/usersService'
 
-
 const exposeController = {
 
     allUsers:async (req,res)=>{
@@ -14,12 +13,19 @@ const exposeController = {
                 return res.json(registeredUser)
             } catch (error) {
                return res.sendStatus(400)
-            // return res.json({error})
         }
         
+    },
+    updateUser:async (req,res)=>{
+        const {body}  = req
+        const {id}    = req.params
+        try {
+            const toUpdate = await usersService.updateUser({id,body})     
+            return res.json(toUpdate)
+            } catch (error) {
+               return res.sendStatus(400)
+        }
     }
-
-
 }
 
 export default exposeController
